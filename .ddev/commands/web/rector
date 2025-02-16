@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## Description: Run rector in the web container
+## Usage: rector
+## Example: ddev rector --dry-run
+
+set -eu
+
+php vendor/bin/rector "$@"
