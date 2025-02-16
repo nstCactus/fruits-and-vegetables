@@ -1,0 +1,7 @@
+api_platform:
+    title: Yohann Bianchi's RoadSurfer coding task
+    version: 1.0.0
+    defaults:
+        stateless: true
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']
