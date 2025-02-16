@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## Description: Run phpstan in the web container
+## Usage: phpstan
+## Example: ddev phpstan analyse
+
+set -eu
+
+php vendor/bin/phpstan --memory-limit=1G "$@"
