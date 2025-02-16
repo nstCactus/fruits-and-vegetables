@@ -2,11 +2,18 @@
 
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         backupGlobals="false"
-         colors="true"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
          bootstrap="tests/bootstrap.php"
-         convertDeprecationsToExceptions="false"
+         colors="true"
+         failOnDeprecation="false"
+         failOnEmptyTestSuite="true"
+         failOnIncomplete="true"
+         failOnNotice="true"
+         failOnRisky="true"
+         failOnSkipped="false"
+         failOnWarning="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         processIsolation="false"
 >
     <php>
         <ini name="display_errors" value="1" />
@@ -14,7 +21,7 @@
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-        <server name="SYMFONY_PHPUNIT_VERSION" value="9.6" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="10.0" />
     </php>
 
     <testsuites>
@@ -23,16 +30,10 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
+    <coverage includeUncoveredFiles="true">
     </coverage>
 
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-    </listeners>
-
     <extensions>
+        <!-- Add relevant PHPUnit 10 event subscribers here -->
     </extensions>
 </phpunit>
