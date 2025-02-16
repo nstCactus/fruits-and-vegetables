@@ -1,0 +1,13 @@
+{
+  "name": "@nstcactus/roadsurfer-coding-task",
+  "private": true,
+  "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@nstcactus/commitlint-config": "^1.1.1",
+    "husky": "^9.1.7"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "test": ""
+  }
+}
