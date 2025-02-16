@@ -9,7 +9,10 @@ class StorageServiceTest extends TestCase
 {
     public function testReceivingRequest(): void
     {
-        $request = file_get_contents('request.json');
+        $filename = 'request.json';
+        $request = file_get_contents($filename);
+
+        assert(gettype($request) === 'string', "File not found: $filename");
 
         $storageService = new StorageService($request);
 
