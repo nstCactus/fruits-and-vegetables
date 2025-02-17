@@ -4,7 +4,7 @@ namespace App\DTO;
 
 class EdibleDTO
 {
-    public int $id;
+    public ?int $id = null;
     public string $name;
     public string $type;
     public int $quantity;

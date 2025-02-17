@@ -6,7 +6,6 @@ use App\Collection\FruitCollection;
 use App\Collection\VegetableCollection;
 use App\DTO\EdibleDTO;
 use App\Entity\EdibleInterface;
-use App\Entity\Enum\EdibleTypeEnum;
 use App\Entity\Fruit;
 use App\Entity\Vegetable;
 use App\Exception\ImportException;

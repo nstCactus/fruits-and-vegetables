@@ -2,6 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use App\Controller\CreateEdible;
 use App\Entity\Enum\EdibleTypeEnum;
 use App\Repository\EdibleRepository;
 use App\State\EdibleDataProvider;
@@ -14,6 +20,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'edible')]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ApiResource(
+    operations: [
+        new Get(uriTemplate: '/edibles/{id}', provider: EdibleDataProvider::class),
+        new GetCollection(uriTemplate: '/edibles'),
+        new Post(uriTemplate: '/edibles', controller: CreateEdible::class, ),
+        new Delete(uriTemplate: '/edibles/{id}'),
+    ],
+    formats: ['json' => 'application/json'],
+)]
 abstract class AbstractEdible implements EdibleInterface
 {
     #[ORM\Id]
@@ -25,7 +40,6 @@ abstract class AbstractEdible implements EdibleInterface
     #[Assert\NotBlank]
     protected string $name = '';
 
-    #[Assert\NotBlank]
     protected ?EdibleTypeEnum $type = null;
 
     #[ORM\Column]
@@ -37,7 +51,7 @@ abstract class AbstractEdible implements EdibleInterface
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
