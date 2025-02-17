@@ -2,12 +2,9 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\FruitRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FruitRepository::class)]
-#[ApiResource()]
+#[ORM\Entity]
 class Fruit extends AbstractEdible
 {
 }

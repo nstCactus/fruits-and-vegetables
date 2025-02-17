@@ -29,8 +29,7 @@ class ImportEdiblesServiceTest extends KernelTestCase
     {
         $connection = $this->entityManager->getConnection();
         $connection->executeStatement('SET FOREIGN_KEY_CHECKS=0;');
-        $connection->executeStatement('TRUNCATE fruit');
-        $connection->executeStatement('TRUNCATE vegetable');
+        $connection->executeStatement('TRUNCATE edible');
         $connection->executeStatement('SET FOREIGN_KEY_CHECKS=1;');
     }
 

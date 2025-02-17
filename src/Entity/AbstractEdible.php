@@ -3,10 +3,17 @@
 namespace App\Entity;
 
 use App\Entity\Enum\EdibleTypeEnum;
+use App\Repository\EdibleRepository;
+use App\State\EdibleDataProvider;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\MappedSuperclass]
+//#[ApiResource]
+#[ORM\Entity(repositoryClass: EdibleRepository::class)]
+#[ORM\Table(name: 'edible')]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 abstract class AbstractEdible implements EdibleInterface
 {
     #[ORM\Id]
@@ -18,7 +25,6 @@ abstract class AbstractEdible implements EdibleInterface
     #[Assert\NotBlank]
     protected string $name = '';
 
-    #[ORM\Column(enumType: EdibleTypeEnum::class)]
     #[Assert\NotBlank]
     protected ?EdibleTypeEnum $type = null;
 
@@ -70,5 +76,15 @@ abstract class AbstractEdible implements EdibleInterface
         $this->quantity = $quantity;
 
         return $this;
+    }
+
+    #[SerializedName('type')]
+    public function getTypeName(): string
+    {
+        return match (true) {
+            $this instanceof Fruit => 'fruit',
+            $this instanceof Vegetable => 'vegetable',
+            default => 'edible',
+        };
     }
 }
