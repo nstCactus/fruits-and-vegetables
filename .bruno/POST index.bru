@@ -1,0 +1,21 @@
+meta {
+  name: POST index
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/edibles
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": 123,
+    "name": "Mango",
+    "quantity": 560,
+    "unit": "g",
+    "type": "fruit"
+  }
+}
