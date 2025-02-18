@@ -1,76 +1,78 @@
-# 🍎🥕 Fruits and Vegetables
+# Yohann Bianchi - Roadsurfer coding task
+
+Implementation of the coding task described [here](./task-readme.md).
 
 
-## 🎯 Goal
+## Tech stack
 
-We want to build a service which will take a `request.json` and:
-
-- Process the file and create two separate collections for `Fruits` and `Vegetables`
-- Each collection has methods like `add()`, `remove()`, `list()`;
-- Units have to be stored as grams;
-- Store the collections in a storage engine of your choice. (e.g. Database, In-memory)
-- Provide an API endpoint to query the collections. As a bonus, this endpoint can accept filters to be applied to the 
-  returning collection.
-- Provide another API endpoint to add new items to the collections (i.e., your storage engine).
-- As a bonus you might:
-  - consider giving option to decide which units are returned (kilograms/grams);
-  - how to implement `search()` method collections;
-  - use latest version of Symfony's to embbed your logic
-
-### ✔️ How can I check if my code is working?
-
-You have two ways of moving on:
-
-- You call the Service from PHPUnit test like it's done in dummy test (just run `bin/phpunit` from the console)
-
-or
-
-- You create a Controller which will be calling the service with a json payload
+- PHP 8.4
+- Symfony 7.2
+- MariaDB 10.11
 
 
-## 💡 Hints before you start working on it
+## Project setup
 
-- Keep KISS, DRY, YAGNI, SOLID principles in mind
-- Timebox your work - we expect that you would spend between 3 and 4 hours.
-- Your code should be tested
+You'll need Docker & [DDEV](https://ddev.com/get-started/) to run the project.
+
+- run the following commands to start the project:
+
+  ```bash
+  ddev start
+  ddev composer install
+  ddev console doctrine:schema:create
+  ```
+
+✨ The API is available at <https://roadsurfer-coding-task.ddev.site/>
 
 
-## When you are finished
+## Documentation
 
-- Please upload your code to a public git repository (i.e. GitHub, Gitlab)
+### Import command
 
-
-## 🐳 Docker image
-
-Optional. Just here if you want to run it isolated.
-
-### 📥 Pulling image
+Run the following command to import data into the database:
 
 ```bash
-docker pull tturkowski/fruits-and-vegetables
+ddev console app:import:edibles tests/Resources/request.json
 ```
 
-### 🧱 Building image
+### API
 
-```bash
-docker build -t tturkowski/fruits-and-vegetables -f docker/Dockerfile .
+A REST API is exposed at <https://roadsurfer-coding-task.ddev.site/api/edibles>.
+
+There is a [Bruno collection](.bruno) that offers ready-to-run requests.
+
+#### `GET /api/edibles`
+
+Get all items.
+
+#### `GET /api/edibles/{id}`
+
+Get a single item by id.
+
+#### `POST /api/edibles`
+
+Create an item.
+
+Example payload:
+
+```json
+{
+  "name": "Mango",
+  "quantity": 560,
+  "unit": "g",
+  "type": "fruit"
+}
 ```
 
-### 🏃‍♂️ Running container
+#### `DELETE /api/edibles/{id}`
+
+Delete a single item by id.
+
+
+## Running tests
+
+Run the following command to run tests:
 
 ```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables sh 
-```
-
-### 🛂 Running tests
-
-```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables bin/phpunit
-```
-
-### ⌨️ Run development server
-
-```bash
-docker run -it -w/app -v$(pwd):/app -p8080:8080 tturkowski/fruits-and-vegetables php -S 0.0.0.0:8080 -t /app/public
-# Open http://127.0.0.1:8080 in your browser
+ddev composer run test
 ```
